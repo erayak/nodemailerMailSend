@@ -1,0 +1,52 @@
+extends layout
+
+block content
+
+    .col-xl-12.col-lg-12.col-md-12.col-xs-12.col-sm-12
+
+        .col-xl-3.col-lg-12.col-md-12.col-xs-12.col-sm-12
+
+        .col-xl-6.col-lg-12.col-md-12.col-xs-12.col-sm-12
+            
+            br
+            if status != 1
+
+                form( action="/", method="post" )
+                  .card.transporterDetail
+                      .card-header
+                          h3="Transporter Detail"
+                      .card-block
+                          label= "Service"
+                          input.form-control( type="text", name="service", placeholder="Gmail" )
+                          label= "Mail"
+                          input.form-control( type="text", name="mail", placeholder="mail@mail.com" )
+                          label= "Password"
+                          input.form-control( type="password", name="password" )
+                          br
+                          button.btn.btn-primary.btn-block.submit( type="button" )= "İleri"
+                  
+                  .card.MailOptions
+                      .card-header
+                          h3="Mail Options"
+                      .card-block
+                          label= "Receiver"
+                          input.form-control( type="text", name="receiver", placeholder="mail@mail.com" )
+                          label= "Subject"
+                          input.form-control( type="text", name="subject", placeholder="Hello ✔" )
+                          label= "Text Html"
+                          input.form-control( type="text", name="html", placeholder="<b>Mail Text<b>" )
+                          br
+                          button.btn.btn-primary.btn-block.submit( type="submit" )= "Gönder"
+            else
+                br
+                .jumbotron
+                    center
+                      h3="Mail Sent Successfully."
+                script.
+                  var redirect = function(){
+                      window.location.href = "/";
+                  };
+                  setTimeout('redirect()','2000');
+
+
+        .col-xl-3.col-lg-12.col-md-12.col-xs-12.col-sm-12
