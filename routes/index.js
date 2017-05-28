@@ -19,35 +19,40 @@ router.post('/',( request, response, next ) => {
 
     if
     ( 
-        !(  
+        !( 
             (service === '') || (mail === '') || 
             (password === '') || (receiver === '') || 
             (subject === '') || (html === '')
         )
     )
     {
-        let transporter = nodemailer.createTransport({
-            service: `${service}`,
-            auth: {
-                user: `${mail}`,
-                pass: `${password}`
-            }
-        });
 
-        let mailOptions = {
-            from: `"${mail}" <${mail}>`, 
-            to: `${receiver}`, 
-            subject: `${subject}`,
-            html: `${html}`
-        };
+        for( var i = 0; i < receiver.split(',').length; i++ )
+        {
+            let transporter = nodemailer.createTransport({
+                service: `${service}`,
+                auth: {
+                    user: `${mail}`,
+                    pass: `${password}`
+                }
+            });
 
-        transporter.sendMail(mailOptions, (error, info) => {
-              response.render('index',{ status:1 });
-        });
+            let mailOptions = {
+                from: `"${mail}" <${mail}>`, 
+                to: `${receiver.split(',')[i]}`, 
+                subject: `${subject}`,
+                html: `${html}`
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                response.render('index',{ status:1 });
+            });
+        }
+   
     }
     else
         response.redirect('/');
-
+    
 });
 
 module.exports = router;
